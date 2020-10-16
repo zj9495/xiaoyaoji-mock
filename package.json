@@ -1,0 +1,22 @@
+{
+  "name": "xiaoyaoji-mock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --watch src ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "koa": "^2.13.0",
+    "koa-router": "^9.4.0",
+    "lodash": "^4.17.20",
+    "mockjs": "^1.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
