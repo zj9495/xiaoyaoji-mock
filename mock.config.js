@@ -3,10 +3,10 @@ module.exports = {
   projects: [
     {
       baseUrl: '/ums',
-      id: "eLtreHVbz",
+      id: "j39xsq6rf",
       rewriteResponse: {
         status: "success",
-        message: "message",
+        message: "  ",
         errorCode: null
       }
     }
