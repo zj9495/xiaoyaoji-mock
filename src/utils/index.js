@@ -9,7 +9,7 @@ const getStructure = (data, obj = {}) => {
       res = getStructure(children)
       if (type.startsWith("array")) {
         res = [res]
-        name = name + '|1-20'
+        name = name + '|1-10'
       }
     } else {
       const format = getFormat(name, type)

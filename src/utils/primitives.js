@@ -16,9 +16,9 @@ module.exports = {
   'string_desc': '@string(15, 60)',
   'string_email': '@email',
   'string_date-time': '@datetime',
-  'number': '@integer(60, 100)',
-  'number_float': '@float(60, 100, 3, 5)',
-  'integer': '@integer(60, 100)',
+  'number': '@integer(1, 100)',
+  'number_float': '@float(1, 100, 3, 5)',
+  'integer': '@integer(1, 100)',
   'boolean': '@boolean',
   getFormat
 }

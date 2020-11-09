@@ -15,9 +15,29 @@ const main = async () => {
   for (let i = 0; i < config.length; i++) {
     const { baseUrl, url, rewriteResponse } = config[i]
     const docs = await getDoc(url)
+    const resstfulDocs = []
 
     docs.forEach(item => {
       const { url, requestMethod, requestArgs, responseArgs } = item
+      const reg = /{/
+      const isRestfulUrl = reg.test(url)
+      if (isRestfulUrl) {
+        resstfulDocs.push(item)
+        return
+      }
+      const apiUrl = baseUrl + url
+      mockRouter[requestMethod.toLowerCase()](apiUrl, async ctx => {
+        const structure = getStructure(responseArgs)
+        ctx.body = {
+          ...Mock.mock(structure),
+          ...rewriteResponse
+        }
+      })
+    })
+
+    resstfulDocs.forEach(item => {
+      const { url, requestMethod, requestArgs, responseArgs } = item
+
       const apiUrl = baseUrl + url.replace(/{/g, ":").replace(/}/g, "")
       mockRouter[requestMethod.toLowerCase()](apiUrl, async ctx => {
         const structure = getStructure(responseArgs)
