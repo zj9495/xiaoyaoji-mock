@@ -3,12 +3,16 @@ module.exports = {
   projects: [
     {
       baseUrl: '',
-      id: "UWIwkYJrW",
+      id: "4Wyx0AJT",
       rewriteResponse: {
         status: "success",
         message: "  ",
         errorCode: null
-      }
+      },
+      whiteList: [
+        /\/api\/sys\/message\//
+      ],
+      blackList: []
     }
   ]
 }

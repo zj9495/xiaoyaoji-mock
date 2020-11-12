@@ -6,6 +6,7 @@ const Mock = require('mockjs')
 const { getStructure } = require('./utils')
 const { getConfig } = require('./utils/config')
 const { getDoc } = require('./utils/docs')
+const { filter } = require('./utils/filter')
 
 const main = async () => {
   const app = new Koa();
@@ -13,7 +14,7 @@ const main = async () => {
 
   const config = getConfig()
   for (let i = 0; i < config.length; i++) {
-    const { baseUrl, url, rewriteResponse } = config[i]
+    const { baseUrl, url, rewriteResponse, whiteList, blackList } = config[i]
     const docs = await getDoc(url)
     const resstfulDocs = []
 
@@ -21,18 +22,20 @@ const main = async () => {
       const { url, requestMethod, requestArgs, responseArgs } = item
       const reg = /{/
       const isRestfulUrl = reg.test(url)
-      if (isRestfulUrl) {
-        resstfulDocs.push(item)
-        return
-      }
-      const apiUrl = baseUrl + url
-      mockRouter[requestMethod.toLowerCase()](apiUrl, async ctx => {
-        const structure = getStructure(responseArgs)
-        ctx.body = {
-          ...Mock.mock(structure),
-          ...rewriteResponse
+      if (filter(url, whiteList, blackList)) {
+        if (isRestfulUrl) {
+          resstfulDocs.push(item)
+          return
         }
-      })
+        const apiUrl = baseUrl + url
+        mockRouter[requestMethod.toLowerCase()](apiUrl, async ctx => {
+          const structure = getStructure(responseArgs)
+          ctx.body = {
+            ...Mock.mock(structure),
+            ...rewriteResponse
+          }
+        })
+      }
     })
 
     resstfulDocs.forEach(item => {

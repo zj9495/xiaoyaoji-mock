@@ -18,7 +18,7 @@ const getDoc = async (url) => {
 
   // const result = res.data.docs[0].children.map(item => (JSON.parse(item.content)))
   const result = parseDoc(res.data.docs)
-  console.log('result: ', result);
+  // console.log('result: ', result);
   return result
   return res.data.docs[0].children.reduce((pre, cur) =>  pre.children.concat(cur.children)).map(item => (JSON.parse(item.content)))
 }

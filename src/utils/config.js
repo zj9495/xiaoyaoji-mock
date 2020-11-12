@@ -9,10 +9,12 @@ const getConfig = () => {
     throw new Error("expected 'projects' in config.js should be an Array")
   }
 
-  const res = projects.map(({ id, baseUrl = "/", rewriteResponse = {} }) => ({
+  const res = projects.map(({ id, baseUrl = "/", rewriteResponse = {}, whiteList = [], blackList = [] }) => ({
     baseUrl,
     url: `${host}/project/${id}/export/cn.xiaoyaoji.export.mjson/do`,
-    rewriteResponse
+    rewriteResponse,
+    whiteList,
+    blackList
   }))
 
   return res
