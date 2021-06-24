@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start ./src/index.js --watch",
+    "start": "node ./src/index.js",
+    "start:pm2": "pm2 start ./src/index.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

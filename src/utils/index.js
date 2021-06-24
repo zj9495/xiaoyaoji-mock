@@ -1,5 +1,5 @@
 const primitives = require("./primitives")
-const {getFormat} = primitives
+const { getPrimitive } = primitives
 
 const getStructure = (data, obj = {}) => {
   data.forEach(item => {
@@ -7,13 +7,12 @@ const getStructure = (data, obj = {}) => {
     let res
     if (children.length) {
       res = getStructure(children)
-      if (type.startsWith("array")) {
-        res = [res]
-        name = name + '|1-10'
-      }
     } else {
-      const format = getFormat(name, type)
-      res = primitives[type + "_" + format] || primitives[type] || primitives["_default"]
+      res = getPrimitive(name, type.replace(/array\[|\]/g, ''))
+    }
+    if (type.startsWith("array")) {
+      res = [res]
+      name = name + '|1-10'
     }
     obj[name] = res
   })
